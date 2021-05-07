@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class carcontroller : MonoBehaviour
 {
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private float chungusForce;
+    [SerializeField] private float chungusDrag;
+    [SerializeField] private float chungusNormalDrag;
+
     private const string HORIZONTAL = "Horizontal";
     private const string VERTICAL = "Vertical";
 
@@ -34,13 +39,24 @@ public class carcontroller : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheels();
+        chungus();
     }
+
+
+    private void chungus()
+    {
+        if (verticalInput < 0)
+        {
+            rb.AddForce(transform.forward*(-chungusForce), ForceMode.Acceleration);
+        }
+    }
+
 
 
     private void GetInput()
     {
         horizontalInput = Input.GetAxis(HORIZONTAL);
-        verticalInput = Input.GetAxis(VERTICAL);
+        verticalInput = -Input.GetAxis(VERTICAL);
         isBreaking = Input.GetKey(KeyCode.Space);
     }
 
@@ -54,10 +70,16 @@ public class carcontroller : MonoBehaviour
 
     private void ApplyBreaking()
     {
-        frontRightWheelCollider.brakeTorque = currentbreakForce;
-        frontLeftWheelCollider.brakeTorque = currentbreakForce;
-        rearLeftWheelCollider.brakeTorque = currentbreakForce;
-        rearRightWheelCollider.brakeTorque = currentbreakForce;
+
+        if (isBreaking )
+        {
+            rb.drag = chungusDrag;
+        }
+        else
+        {
+            rb.drag = chungusNormalDrag;
+        }
+
     }
 
     private void HandleSteering()
