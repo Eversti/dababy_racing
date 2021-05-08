@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CarController2 : MonoBehaviour
 {
+    [SerializeField] private Transform com;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float chungusForce;
     [SerializeField] private float chungusDrag;
@@ -32,6 +33,12 @@ public class CarController2 : MonoBehaviour
     [SerializeField] private Transform frontRightWheeTransform;
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
+
+
+    private void Start() {
+        rb.centerOfMass = com.localPosition;    
+    }
+
 
     private void FixedUpdate()
     {
