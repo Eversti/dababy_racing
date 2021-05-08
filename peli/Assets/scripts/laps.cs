@@ -54,8 +54,6 @@ public class laps : MonoBehaviour
             {
                 cpvalue = 3;
             }
-
-            Debug.Log(cpvalue);
         }
 
         else if(other.tag.Equals("finishline")&&cpvalue==NumberOfCheckpoints)
