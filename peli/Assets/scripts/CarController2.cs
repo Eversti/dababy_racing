@@ -39,6 +39,20 @@ public class CarController2 : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheels();
+        chungus();
+    }
+
+    private void chungus()
+    {
+        if (verticalInput > 0)
+        {
+            if(horizontalInput > 0){
+                rb.AddForce(transform.right*chungusForce*0.25f, ForceMode.Impulse);
+            }else if(horizontalInput < 0){
+                rb.AddForce(-transform.right*chungusForce*0.25f, ForceMode.Impulse);
+            }
+            rb.AddForce(transform.forward*(chungusForce), ForceMode.Impulse);
+        }
     }
 
 
