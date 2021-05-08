@@ -39,7 +39,7 @@ public class carcontroller : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheels();
-        chungus();
+        //chungus();
     }
 
 
@@ -48,6 +48,8 @@ public class carcontroller : MonoBehaviour
         if (verticalInput < 0)
         {
             rb.AddForce(transform.forward*(-chungusForce), ForceMode.Acceleration);
+        }else{
+            rb.velocity = new Vector3( Mathf.Clamp(rb.velocity.x, -5f, 5f), rb.velocity.y, Mathf.Clamp(rb.velocity.z, -5f, 5f));
         }
     }
 
@@ -70,15 +72,17 @@ public class carcontroller : MonoBehaviour
 
     private void ApplyBreaking()
     {
+        /*
+        if (currentbreakForce >= 0 )
+        {
+            rb.velocity = Vector3.zero;
+        }
+        */
 
-        if (isBreaking )
-        {
-            rb.drag = chungusDrag;
-        }
-        else
-        {
-            rb.drag = chungusNormalDrag;
-        }
+        frontRightWheelCollider.brakeTorque = currentbreakForce;
+        frontLeftWheelCollider.brakeTorque = currentbreakForce;
+        rearLeftWheelCollider.brakeTorque = currentbreakForce;
+        rearRightWheelCollider.brakeTorque = currentbreakForce;
 
     }
 
